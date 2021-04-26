@@ -1,36 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Обратная связ на сайте</title>
+{% extends "base.html" %}
 
-<script type="text/javascript">
-function send_form() { //Ajax отправка формы
-var msg = $("#forma").serialize();
-$.ajax({
-    type: "POST",
-    url: "/test-2/send_form.php", //Исправить на путь, где лежит send_form.php
-    data: msg,
-    success: function(data) {
-        alert("Сообщение отправлено");
-    },
-    error:  function(xhr, str){
-        alert("Возникла ошибка!");
-    }
-    });
-}
-</script>
+{% block content %}
 
-</head>
-<body>
+<div class="row">
 
-<form method="post" action="javascript:void(0);" onsubmit="send_form();" id="forma">
-<input type="text" name="fio" placeholder="Ф.И.О" />
-<input type="text" name="phone" placeholder="Телефон" />
-<input type="text" name="email" placeholder="E-Mail" />
-<input type="text" name="adres" placeholder="Адрес доставки" />
-<input type="submit" value="отправить" />
-</form>
+      <div class="col-lg-3">
 
-</body>
-</html>
+        <h1 class="my-4">Shop Name</h1>
+          <a href="#" class="list-group-item">Корзина</a>
+        <div class="list-group">
+          <a href="#" class="list-group-item">Category 2</a>
+          <a href="#" class="list-group-item">Category 3</a>
+        </div>
+
+      </div>
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+          <div class="row">
+              {% for item in news %}
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="./news/{{item.id}}">{{item.title}}</a>
+                </h4>
+                <p class="card-text">{{item.content}}</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">{{item.created_date}}</small>
+              </div>
+            </div>
+          </div>
+              {%endfor%}
+          </div>
+      </div>
+</div>
+{% endblock %}
